@@ -1,0 +1,8 @@
+{
+  "name": "arabic-shaping",
+  "version": "1.0.0",
+  "description": "Provides functions to help display Arabic text in HTML.",
+  "main": "arabic-shaping.js",
+  "author": "Benjamin Geer",
+  "license": "AGPL"
+}
