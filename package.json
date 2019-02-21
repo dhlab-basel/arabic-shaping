@@ -4,5 +4,8 @@
   "description": "Provides functions to help display Arabic text in HTML.",
   "main": "arabic-shaping.js",
   "author": "Benjamin Geer",
-  "license": "AGPL"
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "test": "mocha"
+  }
 }
