@@ -1,4 +1,4 @@
-define(["./arabic-shaping-data"], function (arabicShapingData) {
+define(["./arabic-shaping-data", "./arabic-nonspacing-data"], function (arabicShapingData, arabicNonspacingData) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Public functions
@@ -87,14 +87,17 @@ define(["./arabic-shaping-data"], function (arabicShapingData) {
      */
     function getNextCharGroup(str, startPos) {
         let charGroup = "";
+        let pos = startPos;
 
-        for (let pos = startPos; pos < str.length; pos++) {
-            const char = str.charAt(pos);
+        while (pos < str.length) {
+            const char = String.fromCodePoint(str.codePointAt(pos));
 
             if (charGroup === "") {
                 charGroup = char;
+                pos += char.length;
             } else if (isArabicDiacritic(char)) {
                 charGroup += char;
+                pos += char.length;
             } else {
                 break;
             }
@@ -149,13 +152,16 @@ define(["./arabic-shaping-data"], function (arabicShapingData) {
         }
 
         let result = "";
+        let pos = 0;
 
-        for (let i = 0; i < str.length; i++) {
-            let char = str.charAt(i);
+        while (pos < str.length) {
+            const char = String.fromCodePoint(str.codePointAt(pos));
 
             if (!isArabicDiacritic(char)) {
                 result += char;
             }
+
+            pos += char.length;
         }
 
         return result;
@@ -232,61 +238,8 @@ define(["./arabic-shaping-data"], function (arabicShapingData) {
         return joiningProperty === JoiningProperties.RightJoining || joiningProperty === JoiningProperties.DualJoining;
     }
 
-    // A set of all the non-spacing characters in the Arabic Unicode character block 0600-06FF.
-    const arabicDiacritics = new Set([
-        "610",
-        "611",
-        "612",
-        "613",
-        "614",
-        "615",
-        "616",
-        "617",
-        "618",
-        "619",
-        "61A",
-        "64B",
-        "64C",
-        "64D",
-        "64E",
-        "64F",
-        "650",
-        "651",
-        "652",
-        "653",
-        "654",
-        "655",
-        "656",
-        "657",
-        "658",
-        "659",
-        "65A",
-        "65B",
-        "65C",
-        "65D",
-        "65E",
-        "670",
-        "6D6",
-        "6D7",
-        "6D8",
-        "6D9",
-        "6DA",
-        "6DB",
-        "6DC",
-        "6DF",
-        "6E0",
-        "6E1",
-        "6E2",
-        "6E3",
-        "6E4",
-        "6E7",
-        "6E8",
-        "6EA",
-        "6EB",
-        "6EC",
-        "6ED",
-        "65F"
-    ]);
+    // A set of all Arabic non-spacing marks.
+    const arabicDiacritics = new Set(arabicNonspacingData["diacritics"]);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Construct module object
