@@ -10,7 +10,7 @@ This implementation is intended for the use case where each letter and its diacr
 It provides these functions:
  
 - `isArabicChar`: Determines whether a character is an Arabic character.
-- `isArabicDiacritic`: Determines whether a character is an Arabic non-diacritic (e.g. a letter).
+- `isArabicNonDiacritic`: Determines whether a character is an Arabic non-diacritic (e.g. a letter).
 - `isArabicDiacritic`: Determines whether a character is an Arabic diacritic.
 - `addZwj`: Adds ZWJ as needed before and/or after a character group.
 - `getNextCharGroup`: Extracts a substring containing at most one letter and its diacritics.
