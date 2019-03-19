@@ -13,6 +13,7 @@ It provides these functions:
 - `isArabicNonDiacritic`: Determines whether a character is an Arabic non-diacritic (e.g. a letter).
 - `isArabicDiacritic`: Determines whether a character is an Arabic diacritic.
 - `addZwj`: Adds ZWJ as needed before and/or after a character group.
+- `removeZwj`: Removes ZWJ from a character group.
 - `getNextCharGroup`: Extracts a substring containing at most one letter and its diacritics.
 - `makeCharGroupsWithZwj`: Converts a string to an array of character groups, with any necessary ZWJ characters
   added. Each group can then be wrapped in a `<span>`.
