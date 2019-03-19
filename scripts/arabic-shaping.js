@@ -27,17 +27,23 @@ define(["./arabic-shaping-data", "./arabic-nonspacing-data"], function (arabicSh
     }
 
     /**
+     * Returns true if the specified character is an Arabic non-diacritic character.
+     *
+     * @param char the character to be tested.
+     * @returns {boolean}
+     */
+    function isArabicNonDiacritic(char) {
+        return isArabicChar(char) && !arabicDiacritics.has(charToCodePointStr(char));
+    }
+
+    /**
      * Returns true if the specified character is an Arabic diacritic.
      *
      * @param char the character to be tested.
      * @returns {boolean}
      */
     function isArabicDiacritic(char) {
-        if (!isArabicChar(char)) {
-            return false;
-        } else {
-            return arabicDiacritics.has(charToCodePointStr(char));
-        }
+        return isArabicChar(char) && arabicDiacritics.has(charToCodePointStr(char));
     }
 
     /**
@@ -246,6 +252,7 @@ define(["./arabic-shaping-data", "./arabic-nonspacing-data"], function (arabicSh
 
     return {
         isArabicChar: isArabicChar,
+        isArabicNonDiacritic: isArabicNonDiacritic,
         isArabicDiacritic: isArabicDiacritic,
         addZwj: addZwj,
         getNextCharGroup: getNextCharGroup,
