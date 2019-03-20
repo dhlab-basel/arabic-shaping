@@ -85,6 +85,33 @@ define(["./arabic-shaping-data", "./arabic-nonspacing-data"], function (arabicSh
     }
 
     /**
+     * Removes all ZWJ from a string.
+     *
+     * @param str a string that may contain ZWJ.
+     * @returns {string}
+     */
+    function removeZwj(str) {
+        if (str === undefined || str === null || str === "") {
+            return str;
+        }
+
+        let result = "";
+        let pos = 0;
+
+        while (pos < str.length) {
+            const char = String.fromCodePoint(str.codePointAt(pos));
+
+            if (char !== ZWJ) {
+                result += char;
+            }
+
+            pos += char.length;
+        }
+
+        return result;
+    }
+
+    /**
      * Returns the next character group starting at the
      * specified position in a string. Each Arabic letter and its diacritics
      * become a group. Any other character becomes a group by itself.
@@ -176,27 +203,6 @@ define(["./arabic-shaping-data", "./arabic-nonspacing-data"], function (arabicSh
         return result;
     }
 
-    function removeZwj(str) {
-        if (str === undefined || str === null || str === "") {
-            return str;
-        }
-
-        let result = "";
-        let pos = 0;
-
-        while (pos < str.length) {
-            const char = String.fromCodePoint(str.codePointAt(pos));
-
-            if (char !== ZWJ) {
-                result += char;
-            }
-
-            pos += char.length;
-        }
-
-        return result;
-    }
-
     const ZwjInstructions = {
         ZwjBefore: "Zwj_Before",
         ZwjAfter: "Zwj_After",
@@ -279,6 +285,7 @@ define(["./arabic-shaping-data", "./arabic-nonspacing-data"], function (arabicSh
         isArabicNonDiacritic: isArabicNonDiacritic,
         isArabicDiacritic: isArabicDiacritic,
         addZwj: addZwj,
+        removeZwj: removeZwj,
         getNextCharGroup: getNextCharGroup,
         makeCharGroupsWithZwj: makeCharGroupsWithZwj
     };
