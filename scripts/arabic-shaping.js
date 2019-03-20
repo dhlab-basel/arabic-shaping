@@ -61,6 +61,10 @@ define(["./arabic-shaping-data", "./arabic-nonspacing-data"], function (arabicSh
      * @returns {string}
      */
     function addZwj(charGroup, previousCharGroup, nextCharGroup) {
+        if (charGroup === undefined || charGroup === null || charGroup === "") {
+            return charGroup;
+        }
+
         const charGroupWithoutZwj = removeZwj(charGroup);
         const char = removeDiacritics(charGroupWithoutZwj);
 
